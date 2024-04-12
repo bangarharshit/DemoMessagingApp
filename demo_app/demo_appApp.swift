@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct demo_appApp: App {
+    var messageStore = MessageStore()
     var body: some Scene {
         WindowGroup {
-            ChatListView()
+            ChatListView(messageStoreLocal: messageStore)
         }
     }
 }

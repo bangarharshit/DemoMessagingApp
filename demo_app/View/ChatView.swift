@@ -4,15 +4,15 @@ struct ChatView: View {
     let chatLocal: Chat
     @State private var messages: [Message] // @State to hold the messages
     
-    init(chatOutside: Chat) {
+    init(chatOutside: Chat, messageStore: MessageStore) {
         self.chatLocal = chatOutside
-        self._messages = State(initialValue: chatLocal.messages) // Initialize messages with chat's messages
+        self.messages = messageStore.fetchMessages(chatId: chatOutside.chatId)
     }
     
     var body: some View {
-        NavigationLink(destination: ChatDetailView(messages: $messages, chat: chatLocal, imageName: chatLocal.personDP, personName: chatLocal.personName)) {
+        NavigationLink(destination: ChatDetailView(messages: $messages, chat: chatLocal, imageName: chatLocal.person.profilePicUrl, personName: chatLocal.person.name)) {
             HStack(spacing: 20) {
-                AsyncImage(url: URL(string: chatLocal.personDP)) { image in
+                AsyncImage(url: URL(string: chatLocal.person.profilePicUrl)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -23,7 +23,9 @@ struct ChatView: View {
                 .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(chatLocal.personName.capitalized)
+                    Text(chatLocal.person.name.capitalized)
+                        .font(.system(size: 18, weight: .bold))
+                    Text(messages.last?.messageText ?? "")  //TODO
                         .font(.system(size: 18, weight: .bold))
                 }
                 
@@ -34,20 +36,10 @@ struct ChatView: View {
                         .fill(Color.blue)
                         .frame(width: 20, height: 20)
                     
-                    Text("\(chatLocal.unreadMessages)")
+                    Text("\(messages.count)")
                         .foregroundColor(.white)
                 }
             }
         }
-    }
-}
-
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        let chat = Chat(messages: [Message(messageText: "Hello", messageSender: "Sender", messageTime: Date())],
-                        personDP: "personDP",
-                        personName: "John Doe",
-                        unreadMessages: 1)
-        return ChatView(chatOutside: chat)
     }
 }

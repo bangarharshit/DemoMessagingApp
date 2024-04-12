@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatListView: View {
+    var messageStoreLocal:MessageStore
     
     // Generate messages with varying lastUpdatedTime
     @State private var chats: [Chat] = generateChats() // Assuming you have a function to generate sample chats/
@@ -16,7 +17,7 @@ struct ChatListView: View {
     var body: some View {
         NavigationView {
             List(chats, id: \.self) { chat in // using lambda
-                ChatView(chatOutside: chat)
+                ChatView(chatOutside: chat, messageStore: messageStoreLocal)
             }
 //            List(chats, id: \.self, rowContent: createChatsView)   //higher order function
             
@@ -28,25 +29,9 @@ struct ChatListView: View {
 //    ChatView(chatOutside: chat)
 //}
 
-struct ChatRow: View {
-    let chat: Chat
-    
-    var body: some View {
-        HStack {
-                // Display chat information here
-                // For example:
-            Image(systemName: "person.circle")
-                .resizable()
-                .frame(width: 50, height: 50)
-                .padding(.trailing, 10)
-            Text(chat.personName)
-        }
-    }
-}
-
-struct ChatListView_Previews: PreviewProvider {
-    static var previews: some View {
-            // Create a preview with the ChatListView
-        ChatListView()
-    }
-}
+//struct ChatListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//            // Create a preview with the ChatListView
+//        ChatListView()
+//    }
+//}

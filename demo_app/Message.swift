@@ -7,9 +7,11 @@
 
 import Foundation
 
+// app open -> list of chats fetch
+// chat open -> list of messatges fetch
 struct Message : Hashable {
     let messageText: String
-    let messageSender: String
+    let messageSender: PersonDetails
     let messageTime: Date
     
     func hash(into hasher: inout Hasher) {

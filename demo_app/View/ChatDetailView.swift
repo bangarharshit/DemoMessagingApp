@@ -4,7 +4,6 @@ struct ChatDetailView: View {
     
     @Binding var messages: [Message] // Change binding type to [Message]
     let chat: Chat
-//    @State private var messages: [Message]
     let imageName: String
     let personName: String
     
@@ -45,7 +44,7 @@ struct ChatDetailView: View {
 //    
     func sendMessage() {
         if !newMessage.isEmpty {
-            let message = Message(messageText: newMessage, messageSender: "Me", messageTime: Date())
+            let message = Message(messageText: newMessage, messageSender: PersonDetails(name: "me", profilePicUrl: "me"), messageTime: Date())
             messages.append(message)
             newMessage = ""
         }
@@ -99,12 +98,12 @@ struct CustomNavigationTitleView: View {
     }
 }
 
-struct ChatDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let chat = Chat(messages: [Message(messageText: "Hello", messageSender: "Sender", messageTime: Date())],
-                        personDP: "personDP",
-                        personName: "John Doe",
-                        unreadMessages: 0)
-        return ChatDetailView(messages: .constant(chat.messages), chat: chat, imageName: chat.personDP, personName: chat.personName)
-    }
-}
+//struct ChatDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let chat = Chat(messages: [Message(messageText: "Hello", messageSender: "Sender", messageTime: Date())],
+//                        personDP: "personDP",
+//                        personName: "John Doe",
+//                        unreadMessages: 0)
+//        return ChatDetailView(messages: .constant(chat.messages), chat: chat, imageName: chat.personDP, personName: chat.personName)
+//    }
+//}
