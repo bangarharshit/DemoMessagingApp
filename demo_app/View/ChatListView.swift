@@ -26,7 +26,7 @@ struct ChatListView: View {
 }
 
 //func createChatsView(chat: Chat) -> ChatView  {   // higher order function
-//    ChatView(chatOutside: chat)
+//    ChatView(chatOutside: chat, messageStore: messageStoreLocal))
 //}
 
 //struct ChatListView_Previews: PreviewProvider {
